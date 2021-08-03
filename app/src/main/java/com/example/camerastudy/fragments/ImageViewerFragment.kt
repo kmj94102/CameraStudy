@@ -1,4 +1,4 @@
 package com.example.camerastudy.fragments
 
-class GalleryFragment {
+class ImageViewerFragment {
 }
