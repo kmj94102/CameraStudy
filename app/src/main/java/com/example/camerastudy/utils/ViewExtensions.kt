@@ -21,6 +21,9 @@ const val FLAGS_FULLSCREEN =
 const val ANIMATION_FAST_MILLIS = 50L
 const val ANIMATION_SLOW_MILLIS = 100L
 
+const val BUNDLE_CAMERA_ID = "bundle_camera_id"
+const val BUNDLE_FORMAT = "bundle_format"
+
 /**
  * Simulate a button click, including a small delay while it is being pressed to trigger the
  * appropriate animations.

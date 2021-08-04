@@ -27,8 +27,7 @@ class AutoFitSurfaceView @JvmOverloads constructor(
      * @param width  카메라 해상도 가로 크기  Camera resolution horizontal size
      * @param height 카메라 해상도 세로 크기 Camera resolution vertical size
      */
-
-    private fun setAspectRatio(width : Int, height : Int){
+    fun setAspectRatio(width : Int, height : Int){
         require(width > 0 && height > 0) { "Size cannot be negative" }
         aspectRatio = width.toFloat() / height.toFloat()
         holder.setFixedSize(width, height)

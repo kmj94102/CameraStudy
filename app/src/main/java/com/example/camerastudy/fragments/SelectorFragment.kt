@@ -12,11 +12,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.camerastudy.R
+import com.example.camerastudy.utils.BUNDLE_CAMERA_ID
+import com.example.camerastudy.utils.BUNDLE_FORMAT
 import com.example.camerastudy.utils.GenericListAdapter
 
 class SelectorFragment : Fragment() {
@@ -45,8 +48,10 @@ class SelectorFragment : Fragment() {
                 view.findViewById<TextView>(android.R.id.text1).text = item.title
                 view.setOnClickListener {
                     Navigation.findNavController(requireActivity(), R.id.fragment_container)
-                        .navigate(R.id.camera_fragment)//, item.cameraId, item.format)
-                    // todo argument 넘기는것 체크 필요
+                        .navigate(
+                            R.id.camera_fragment,
+                            bundleOf(BUNDLE_CAMERA_ID to item.cameraId, BUNDLE_FORMAT to item.format)
+                        )
                 }
             }
         }
