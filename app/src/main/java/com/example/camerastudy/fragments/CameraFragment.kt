@@ -18,8 +18,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.navArgs
-import com.example.camerastudy.MainActivity
+import com.example.camerastudy.BasicActivity
 import com.example.camerastudy.R
 import com.example.camerastudy.databinding.FragmentCameraBinding
 import com.example.camerastudy.utils.BUNDLE_CAMERA_ID
@@ -77,7 +76,7 @@ class CameraFragment : Fragment() {
             // ANIMATION_FAST_MILLIS 를 기다립니다. Wait for ANIMATION_FAST_MILLIS
             fragmentCameraBinding.overlay.postDelayed({
 
-            }, MainActivity.ANIMATION_FAST_MILLIS)
+            }, BasicActivity.ANIMATION_FAST_MILLIS)
         }
     }
 
@@ -142,22 +141,35 @@ class CameraFragment : Fragment() {
                 view.post { initializeCamera() }
 
             }
-
-            // Used to rotate the output media to match device orientation
-//            relativeOrientation  todo 여기부터 진행
-
         })
+
+        // Used to rotate the output media to match device orientation
+        relativeOrientation = OrientationLiveData(requireContext(), characteristics).apply {
+            observe(viewLifecycleOwner, { orientation ->
+                Log.d(TAG, "Orientation change: $orientation")
+            })
+        }
 
     }
 
+    /**
+     * Begin all camera operations in a coroutine in the main thread. This function:
+     * 메인 스레드의 코루틴에서 모든 카메라 작업을 시작합니다. 이 기능:
+     * - Opens the camera 카메라를 엽니다.
+     * - Configures the camera session 카메라 세션 구성
+     * - Starts the preview by dispatching a repeating capture request
+     *   반복되는 캡처 요청을 전달하여 미리보기를 시작합니다.
+     * - Sets up the still image capture listeners
+     *   스틸 이미지 캡처 리스너 설정
+     * */
     private fun initializeCamera() = lifecycleScope.launch(Dispatchers.Main) {
 
 
     }
 
     companion object {
-        private val TAG = CameraFragment::class.java.javaClass.simpleName
-
+`        private val TAG = CameraFragment::class.java.javaClass.simpleName
+`
         /** Maximum number of images that will be held in the reader's buffer
          * 판독기의 버퍼에 보관될 최대 이미지 수 */
         private const val IMAGE_BUFFER_SIZE : Int = 3
